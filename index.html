@@ -1,208 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Character Profiles</title>
-  <meta name="description" content="Browse character profiles and read their stories." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0b0e14;
-      --panel: #11151f;
-      --panel-2: #0f1420;
-      --text: #e6eaf2;
-      --muted: #a9b0bf;
-      --brand: #6aa0ff;
-      --brand-2: #8bc7ff;
-      --ok: #5bd993;
-      --warn: #ffcc66;
-      --danger: #ff6a7a;
-      --ring: 0 0 0 3px rgba(106,160,255,.35);
-      --radius: 14px;
-      --shadow: 0 8px 30px rgba(0,0,0,.35);
-    }
-    [data-theme="light"] {
-      --bg: #f7f8fb;
-      --panel: #ffffff;
-      --panel-2: #f2f5fb;
-      --text: #101318;
-      --muted: #556070;
-      --brand: #375dfb;
-      --brand-2: #6aa0ff;
-      --ok: #0a8f5d;
-      --warn: #a26b00;
-      --danger: #b7263a;
-      --ring: 0 0 0 3px rgba(55,93,251,.25);
-      --shadow: 0 8px 30px rgba(16,19,24,.08);
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Demon Slayer — Character Profiles</title>
+<meta name="description" content="Browse Demon Slayer–themed character profiles with stylized silhouettes and haori patterns." />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-    /* Reset-ish */
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      background: radial-gradient(1200px 800px at 60% -20%, rgba(106,160,255,.20), transparent 60%) , var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+<style>
+  /* ===================== THEME ===================== */
+  :root{
+    --bg: #0a0c10;                /* ink black */
+    --bg-2: #0e1218;
+    --text: #eaeaf0;
+    --muted: #a9b0bf;
+    --accent: #c81f3d;            /* blood red */
+    --accent-2:#f04a4a;
+    --panel: #12161e;
+    --panel-2:#0f141c;
+    --ring: 0 0 0 3px rgba(200,31,61,.35);
+    --radius: 16px;
+    --shadow: 0 16px 50px rgba(0,0,0,.55);
+  }
 
-    /* Layout */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-    header {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .title {
-      font-weight: 800;
-      letter-spacing: .3px;
-      font-size: clamp(22px, 3.3vw, 32px);
-    }
-    .subtitle {
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: -6px;
-    }
-    .toolbar {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      justify-content: flex-end;
-    }
-    .btn, .chip {
-      border: 1px solid transparent;
-      background: linear-gradient(180deg, var(--panel), var(--panel-2));
-      padding: 10px 14px;
-      border-radius: 10px;
-      color: var(--text);
-      box-shadow: var(--shadow);
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600;
-    }
-    .btn:focus-visible { outline: none; box-shadow: var(--ring); }
-    .btn.primary { border-color: rgba(106,160,255,.35); }
-    .btn.ghost { background: transparent; border-color: rgba(255,255,255,.1); box-shadow: none; }
-    .icon { width: 18px; height: 18px; display: inline-block; }
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    color:var(--text);
+    background:
+      /* red sun vignette */
+      radial-gradient(800px 450px at 80% -10%, rgba(200,31,61,.18), transparent 60%),
+      /* subtle wave pattern (SVG data URI below) */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><defs><pattern id='a' width='20' height='20' patternUnits='userSpaceOnUse'><path d='M0 10q5-10 10 0t10 0t10 0' fill='none' stroke='%231f2835' stroke-width='1'/></pattern></defs><rect width='100%' height='100%' fill='%230a0c10'/><rect width='100%' height='100%' fill='url(%23a)' opacity='.55'/></svg>") repeat;
+    background-attachment: fixed;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
 
-    /* Search + tags */
-    .filters {
-      display: grid;
-      grid-template-columns: minmax(0,1fr);
-      gap: 12px;
-      margin: 12px 0 22px;
-    }
-    .search {
-      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
-      padding: 12px 14px; border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--panel), var(--panel-2));
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: var(--shadow);
-    }
-    .search input {
-      background: transparent; border: 0; color: var(--text); font-size: 15px; outline: none;
-    }
-    .search input::placeholder { color: var(--muted); }
-    .tag-bar { display: flex; flex-wrap: wrap; gap: 8px; }
-    .chip[aria-pressed="true"] { border-color: var(--brand-2); background: rgba(106,160,255,.12); }
+  .container{max-width:1100px;margin:0 auto;padding:24px}
 
-    /* Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 920px) { .grid { grid-template-columns: repeat(8, 1fr); } }
-    @media (max-width: 640px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+  header{
+    display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;margin-bottom:10px
+  }
+  .title{
+    display:flex;flex-direction:column;gap:2px
+  }
+  .jp{
+    font-family: "Noto Serif JP", serif;
+    font-weight:900;
+    letter-spacing:.08em;
+    font-size: clamp(22px, 3.6vw, 36px);
+    line-height:1;
+  }
+  .en{
+    font-weight:800; letter-spacing:.3px; opacity:.9; margin-top:4px; font-size: clamp(14px, 2.2vw, 16px);
+    color:var(--muted)
+  }
 
-    .card {
-      grid-column: span 4;
-      background: linear-gradient(180deg, var(--panel), var(--panel-2));
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: grid;
-      grid-template-rows: 190px auto;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,.45); }
-    .thumb { aspect-ratio: 16/10; background: #0a0e15; display: grid; place-items: center; overflow: hidden; }
-    .thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .content { padding: 14px 14px 16px; }
-    .name { font-weight: 700; font-size: 18px; }
-    .alias { color: var(--muted); font-size: 13px; margin-top: 2px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .tag { font-size: 12px; padding: 5px 8px; border-radius: 8px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); color: var(--muted); }
+  .toolbar{display:flex;gap:10px;align-items:center;justify-content:flex-end}
+  .btn{
+    appearance:none;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    color:var(--text);padding:10px 14px;border-radius:12px;box-shadow:var(--shadow);cursor:pointer;font-weight:600
+  }
+  .btn:focus-visible{outline:none;box-shadow:var(--ring)}
+  .btn.primary{border-color:rgba(200,31,61,.35)}
+  .icon{font-size:16px;margin-right:8px}
 
-    /* Detail view */
-    .detail {
-      display: none;
-      background: linear-gradient(180deg, var(--panel), var(--panel-2));
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-      overflow: clip;
-      grid-template-columns: 360px 1fr;
-      gap: 0;
-      box-shadow: var(--shadow);
-      margin-top: 10px;
-    }
-    .detail.show { display: grid; }
-    @media (max-width: 860px) { .detail { grid-template-columns: 1fr; } }
-    .detail .cover { background: #0a0e15; height: 100%; }
-    .detail .cover img { width: 100%; height: 100%; object-fit: cover; }
-    .detail .body { padding: 18px; }
-    .breadcrumbs { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
-    .detail h1 { margin: 6px 0 6px; font-size: clamp(22px, 3vw, 28px); }
-    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 14px; }
-    .pill { padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.06); font-size: 12px; color: var(--muted); }
-    .bio { font-size: 15px; }
-    .kv {
-      margin-top: 18px; display: grid; gap: 8px;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-    }
-    @media (max-width: 640px) { .kv { grid-template-columns: 1fr; } }
-    .kv-item { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 10px 12px; }
-    .kv-item .k { font-size: 12px; color: var(--muted); }
-    .kv-item .v { font-weight: 600; }
+  /* Filters */
+  .filters{display:grid;gap:12px;margin:14px 0 22px}
+  .search{
+    display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;
+    padding:12px 14px;border-radius:12px;background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid rgba(255,255,255,.08)
+  }
+  .search input{background:transparent;border:0;color:var(--text);outline:none;font-size:15px}
+  .search input::placeholder{color:var(--muted)}
+  .tags{display:flex;flex-wrap:wrap;gap:10px}
 
-    footer {
-      margin: 32px 0 20px; color: var(--muted); font-size: 13px; text-align: center;
-    }
+  /* tsuba-like chip */
+  .chip{
+    position:relative; padding:9px 14px 9px 40px; border-radius:999px; border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(180deg,#151a24,#0f141c); color:var(--text); font-size:13px;
+  }
+  .chip::before{
+    content:""; position:absolute; left:10px; top:50%; transform:translateY(-50%);
+    width:18px;height:18px;border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(200,31,61,.8) 0 40%, transparent 41%),
+      conic-gradient(from 0deg,#0000 0 25%, rgba(255,255,255,.15) 0 50%, #0000 0 75%, rgba(255,255,255,.15) 0);
+    outline:1px solid rgba(255,255,255,.15);
+  }
+  .chip[aria-pressed="true"]{border-color:var(--accent); box-shadow:0 0 0 3px rgba(200,31,61,.25) inset}
 
-    /* Accessibility helpers */
-    .sr-only {
-      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
-    }
+  /* Grid */
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+  @media (max-width:920px){.grid{grid-template-columns:repeat(8,1fr)}}
+  @media (max-width:640px){.grid{grid-template-columns:repeat(4,1fr)}}
 
-  </style>
+  .card{
+    grid-column:span 4;background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden;
+    display:grid;grid-template-rows:200px auto;transition:transform .2s ease, box-shadow .2s ease
+  }
+  .card:hover{transform:translateY(-3px); box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .thumb{background:#080b10;display:grid;place-items:center;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .content{padding:14px 14px 16px}
+  .name{font-weight:800;font-size:18px}
+  .alias{color:var(--muted);font-size:13px;margin-top:2px}
+  .tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .tag{font-size:12px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:var(--muted)}
+
+  /* Detail */
+  .detail{display:none;background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);overflow:clip;grid-template-columns:380px 1fr;box-shadow:var(--shadow);margin-top:10px}
+  .detail.show{display:grid}
+  @media (max-width:860px){.detail{grid-template-columns:1fr}}
+  .detail .cover{background:#080b10;height:100%}
+  .detail .cover img{width:100%;height:100%;object-fit:cover}
+  .detail .body{padding:18px}
+  .breadcrumbs{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .detail h1{margin:6px 0 6px;font-size:clamp(22px,3vw,28px)}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 14px}
+  .pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);font-size:12px;color:var(--muted)}
+  .bio{font-size:15px}
+  .kv{margin-top:18px;display:grid;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:640px){.kv{grid-template-columns:1fr}}
+  .kv-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px}
+  .kv-item .k{font-size:12px;color:var(--muted)}
+  .kv-item .v{font-weight:700}
+
+  footer{margin:32px 0 20px;color:var(--muted);font-size:13px;text-align:center}
+</style>
 </head>
 <body>
   <div class="container" id="app">
     <header>
-      <div>
-        <div class="title">Character Profiles</div>
-        <div class="subtitle">Click a card to read more. Use the search and tags to filter.</div>
+      <div class="title">
+        <div class="jp">鬼滅の刃</div>
+        <div class="en">Character Profiles (Demon Slayer–inspired)</div>
       </div>
       <div class="toolbar">
-        <button class="btn ghost" id="themeToggle" aria-pressed="false" title="Toggle theme">
-          <span aria-hidden="true" class="icon">🌓</span> Theme
-        </button>
-        <a class="btn primary" href="#/" id="homeBtn" title="Home">
-          <span aria-hidden="true" class="icon">🏠</span> Home
-        </a>
+        <a class="btn primary" href="#/"><span class="icon">🏠</span>Home</a>
       </div>
     </header>
 
@@ -210,12 +151,12 @@
       <div class="search" role="search">
         <span aria-hidden="true">🔎</span>
         <input id="searchInput" type="search" placeholder="Search by name, alias, or bio…" autocomplete="off" />
-        <button class="btn ghost" id="clearSearch" title="Clear search">Clear</button>
+        <button class="btn" id="clearSearch" title="Clear search">Clear</button>
       </div>
-      <div class="tag-bar" id="tagBar" role="toolbar" aria-label="Tag filters"></div>
+      <div class="tags" id="tagBar" role="toolbar" aria-label="Tag filters"></div>
     </section>
 
-    <!-- List (grid) view -->
+    <!-- List view -->
     <section id="listView" class="grid" aria-live="polite" aria-busy="false"></section>
 
     <!-- Detail view -->
@@ -228,286 +169,200 @@
           <span class="pill" id="detailAlias"></span>
           <span class="pill" id="detailStatus"></span>
         </div>
-        <div class="tags" id="detailTags"></div>
+        <div class="tagrow" id="detailTags"></div>
         <p class="bio" id="detailBio"></p>
-
         <div class="kv" id="detailKV"></div>
       </div>
     </article>
 
-    <footer>Built with vanilla HTML, CSS & JS. Customize the data below in the file.</footer>
+    <footer>No copyrighted images are used; silhouettes and patterns are generated as inline SVG. Replace the sample data with your own when ready.</footer>
   </div>
 
-  <script>
-    /**
-     * =========================
-     * Quick customization guide
-     * =========================
-     * 1) Add your images to /images and update the `image` fields below.
-     * 2) Edit the `CHARACTERS` array to add/remove characters.
-     * 3) Optional: Change colors in the :root CSS variables.
-     * 4) Link directly to a character with: https://YOUR-USER.github.io/REPO/#/character/<slug>
-     */
-
-    /** -------------------------------------------
-     * Sample data — replace with your own!
-     * Fields are free-form; keep keys you need.
-     * ------------------------------------------- */
-    const CHARACTERS = [
-      {
-        id: "aran-wilder",
-        name: "Aran Wilder",
-        alias: "The Last Cartographer",
-        image: "images/aran.jpg",
-        status: "Alive",
-        tags: ["Explorer", "Cartographer", "Human"],
-        bio: "A relentless explorer who maps places that refuse to stay put. Aran anchors drifting islands by naming them.",
-        stats: { Age: "31", Origin: "Northreach", Affiliation: "Sky Survey", "First appearance": "Ch. 02" }
-      },
-      {
-        id: "sable-nyx",
-        name: "Sable Nyx",
-        alias: "Whisper of Glass",
-        image: "images/sable.jpg",
-        status: "Unknown",
-        tags: ["Assassin", "Rogue", "Elf"],
-        bio: "Sable speaks in reflections—rumored to step between mirrors. Hired blade with a personal code.",
-        stats: { Age: "???", Origin: "The Seam", Affiliation: "None", "First appearance": "Ch. 05" }
-      },
-      {
-        id: "kaio-ventris",
-        name: "Kaio Ventris",
-        alias: "Stormcaller",
-        image: "images/kaio.jpg",
-        status: "Deceased",
-        tags: ["Mage", "Scholar", "Human"],
-        bio: "A scholar whose weatherwork saved a city—and broke its river. Their journals are sealed.",
-        stats: { Age: "48", Origin: "Hallowmere", Affiliation: "Azure Collegium", "First appearance": "Ch. 01" }
-      }
-    ];
-
-    /** Utility: slugify a string to use in URLs */
-    const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-
-    /** Collect unique tags from data */
-    function collectTags(data) {
-      const set = new Set();
-      data.forEach(c => (c.tags || []).forEach(t => set.add(t)));
-      return [...set].sort((a,b)=>a.localeCompare(b));
+<script>
+  /* ===================== DATA (edit this) ===================== */
+  const CHARACTERS = [
+    {
+      id: "tanjiro-kamado",
+      name: "Tanjiro Kamado",
+      alias: "Water Breathing · Hinokami",
+      status: "Demon Slayer Corps",
+      tags: ["Human", "Swordsman", "Protagonist"],
+      bio: "Kind-hearted and stubbornly hopeful. His haori’s check pattern is a nod to family and resolve.",
+      stats: { "Breathing": "Water / Sun", Nichirin: "Black", Trait: "Unyielding" },
+      image: makeSilhouette("tanjiro")
+    },
+    {
+      id: "nezuko-kamado",
+      name: "Nezuko Kamado",
+      alias: "Demon · Bamboo Muzzle",
+      status: "Demon (ally)",
+      tags: ["Demon", "Sibling", "Support"],
+      bio: "Silent warmth. Blood Art turns gentleness into ferocity.",
+      stats: { "Blood Art": "Exploding Blood", Trait: "Sunlight Resistance", Bond: "Tanjiro" },
+      image: makeSilhouette("nezuko")
+    },
+    {
+      id: "zenitsu-agatsuma",
+      name: "Zenitsu Agatsuma",
+      alias: "Thunderclap and Flash",
+      status: "Demon Slayer Corps",
+      tags: ["Human", "Swordsman", "Lightning"],
+      bio: "Coward by day, lightning by night. Belief channels into a single perfect form.",
+      stats: { "Breathing": "Thunder", Nichirin: "Yellow", Trait: "Single-Form Mastery" },
+      image: makeSilhouette("zenitsu")
+    },
+    {
+      id: "inosuke-hashibira",
+      name: "Inosuke Hashibira",
+      alias: "Beast Breathing · Dual",
+      status: "Demon Slayer Corps",
+      tags: ["Human", "Swordsman", "Wild"],
+      bio: "A boar’s head and a free heart. Instinct sharp enough to cut fate.",
+      stats: { "Breathing": "Beast", Nichirin: "Indigo-Gray", Trait: "Hyper-awareness" },
+      image: makeSilhouette("inosuke")
+    },
+    {
+      id: "muzan-kibutsuji",
+      name: "Muzan Kibutsuji",
+      alias: "Demon King",
+      status: "Antagonist",
+      tags: ["Demon", "Antagonist", "Blood Art"],
+      bio: "A flawless mask over endless hunger. The origin and end of many tragedies.",
+      stats: { Rank: "Demon Progenitor", Weakness: "Sunlight", Trait: "Manipulation" },
+      image: makeSilhouette("muzan")
     }
+  ];
 
-    /** Render tag bar with toggleable chips */
-    function renderTagBar(tags) {
-      const bar = document.getElementById('tagBar');
-      bar.innerHTML = '';
-      tags.forEach(tag => {
-        const b = document.createElement('button');
-        b.className = 'chip';
-        b.type = 'button';
-        b.setAttribute('aria-pressed','false');
-        b.textContent = tag;
-        b.addEventListener('click', () => {
-          const active = b.getAttribute('aria-pressed') === 'true';
-          b.setAttribute('aria-pressed', String(!active));
-          updateList();
-        });
-        bar.appendChild(b);
-      });
+  /* ======= Patterned silhouette images (SVG data URIs) ======= */
+  /**
+   * Each “style” returns a background haori pattern + a neutral head/shoulders silhouette.
+   * No external assets. Safe to use.
+   */
+  function makeSilhouette(style){
+    const patterns = {
+      tanjiro: haoriTanjiro(),
+      nezuko: haoriNezuko(),
+      zenitsu: haoriZenitsu(),
+      inosuke: haoriInosuke(),
+      muzan: haoriMuzan()
+    };
+    const bg = patterns[style] || haoriTanjiro();
+    const svg = `
+      <svg xmlns='http://www.w3.org/2000/svg' width='1200' height='750' viewBox='0 0 1200 750'>
+        <defs>
+          <clipPath id='round'><rect x='0' y='0' width='1200' height='750' rx='28' ry='28'/></clipPath>
+          <filter id='shadow' x='-20%' y='-20%' width='140%' height='140%'>
+            <feDropShadow dx='0' dy='10' stdDeviation='12' flood-color='rgba(0,0,0,0.6)'/>
+          </filter>
+        </defs>
+        <g clip-path='url(#round)'>
+          ${bg}
+          <!-- vignette -->
+          <rect width='1200' height='750' fill='url(#vignette)' opacity='.9'/>
+          <!-- silhouette (generic warrior bust) -->
+          <g filter='url(#shadow)' opacity='.92'>
+            <path d='M600 470c-80 0-170 50-200 120h400c-30-70-120-120-200-120z' fill='#0a0c10'/>
+            <circle cx='600' cy='330' r='120' fill='#0a0c10'/>
+            <!-- hair spikes -->
+            <path d='M540 210l-40-30 20 50-40-10 30 40-50 5 40 20-30 20 60-5' fill='#0a0c10' opacity='.9'/>
+            <path d='M660 210l40-30-20 50 40-10-30 40 50 5-40 20 30 20-60-5' fill='#0a0c10' opacity='.9'/>
+          </g>
+        </g>
+      </svg>`;
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+  }
 
-      // Also add a "Clear tags" chip if there are tags
-      if (tags.length) {
-        const clear = document.createElement('button');
-        clear.className = 'chip';
-        clear.type = 'button';
-        clear.textContent = 'Clear tags';
-        clear.addEventListener('click', () => {
-          [...bar.querySelectorAll('.chip[aria-pressed="true"]')].forEach(c => c.setAttribute('aria-pressed','false'));
-          updateList();
-        });
-        bar.appendChild(clear);
-      }
-    }
+  /* ======= Haori backgrounds (as SVG snippets) ======= */
+  function haoriTanjiro(){
+    // Green/black check
+    return `
+      <defs>
+        <pattern id='check' width='80' height='80' patternUnits='userSpaceOnUse'>
+          <rect width='80' height='80' fill='#0b0f14'/>
+          <rect x='0' y='0' width='40' height='40' fill='#0d7a62'/>
+          <rect x='40' y='40' width='40' height='40' fill='#0d7a62'/>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(200,31,61,0.15)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.65)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#check)'/>`;
+  }
 
-    /** Filter logic */
-    function getActiveTags() {
-      return [...document.querySelectorAll('#tagBar .chip[aria-pressed="true"]')].map(b => b.textContent);
-    }
-    function matchesFilters(character, term, activeTags) {
-      const text = (character.name + ' ' + (character.alias||'') + ' ' + (character.bio||'')).toLowerCase();
-      const searchOk = !term || text.includes(term);
-      const tagsOk = !activeTags.length || activeTags.every(t => (character.tags||[]).includes(t));
-      return searchOk && tagsOk;
-    }
+  function haoriNezuko(){
+    // Pink asanoha (hemp leaf) over soft gradient
+    return `
+      <defs>
+        <pattern id='asanoha' width='80' height='80' patternUnits='userSpaceOnUse' viewBox='0 0 80 80'>
+          <rect width='80' height='80' fill='#f6c1cc'/>
+          <path d='M40 0 50 20 40 40 30 20 40 0
+                   M0 40 20 50 40 40 20 30 0 40
+                   M40 80 50 60 40 40 30 60 40 80
+                   M80 40 60 50 40 40 60 30 80 40' fill='none' stroke='#8f3c4f' stroke-width='1.2'/>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(200,31,61,0.2)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.65)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#asanoha)'/>`;
+  }
 
-    /** Render grid */
-    function renderList(data) {
-      const grid = document.getElementById('listView');
-      grid.innerHTML = '';
+  function haoriZenitsu(){
+    // Yellow triangles
+    return `
+      <defs>
+        <pattern id='tri' width='80' height='80' patternUnits='userSpaceOnUse'>
+          <rect width='80' height='80' fill='#f7c32b'/>
+          <path d='M10 70 30 30 50 70z M50 70 70 30 90 70z M-30 70 -10 30 10 70z' fill='#fff' opacity='.9'/>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(240,74,74,0.16)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.65)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#tri)'/>`;
+  }
 
-      if (!data.length) {
-        const empty = document.createElement('div');
-        empty.style.gridColumn = '1 / -1';
-        empty.innerHTML = `<div class="card" style="grid-column: 1/-1; text-align:center; padding:24px; display:block;">
-          <div class="content">
-            <div class="name">No characters match your filters.</div>
-            <div class="alias">Try clearing search or tags.</div>
-          </div>
-        </div>`;
-        grid.appendChild(empty);
-        return;
-      }
+  function haoriInosuke(){
+    // Rough fur strokes (blue-gray)
+    return `
+      <defs>
+        <pattern id='fur' width='60' height='60' patternUnits='userSpaceOnUse'>
+          <rect width='60' height='60' fill='#3e5570'/>
+          <path d='M0 45 q15-30 30 0 t30 0' fill='none' stroke='#cbd6e2' stroke-width='2' opacity='.35'/>
+          <path d='M0 25 q15-30 30 0 t30 0' fill='none' stroke='#dfe7f0' stroke-width='1.4' opacity='.25'/>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(240,74,74,0.14)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.65)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#fur)'/>`;
+  }
 
-      for (const c of data) {
-        const a = document.createElement('a');
-        a.href = `#/character/${c.id || slugify(c.name)}`;
-        a.className = 'card';
-        a.setAttribute('aria-label', `Open profile for ${c.name}`);
-        a.innerHTML = `
-          <div class="thumb">${c.image ? `<img src="${c.image}" alt="">` : `<span style="color:var(--muted)">No image</span>`}</div>
-          <div class="content">
-            <div class="name">${escapeHTML(c.name)}</div>
-            ${c.alias ? `<div class="alias">${escapeHTML(c.alias)}</div>` : ''}
-            <div class="tags">${(c.tags||[]).slice(0,4).map(t=>`<span class="tag">${escapeHTML(t)}</span>`).join('')}</div>
-          </div>`;
-        grid.appendChild(a);
-      }
-    }
+  function haoriMuzan(){
+    // Black + red swirls (ominous)
+    return `
+      <defs>
+        <pattern id='swirl' width='160' height='160' patternUnits='userSpaceOnUse'>
+          <rect width='160' height='160' fill='#0a0b0f'/>
+          <g stroke='#a10e24' stroke-width='2' fill='none' opacity='.6'>
+            <path d='M80 10c40 0 70 30 70 70s-30 70-70 70-70-30-70-70 30-70 70-70z'/>
+            <path d='M80 26c31 0 54 23 54 54s-23 54-54 54-54-23-54-54 23-54 54-54z'/>
+          </g>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(200,31,61,0.28)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.7)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#swirl)'/>`;
+  }
 
-    /** Escape HTML (basic) */
-    function escapeHTML(s) {
-      return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    }
+  /* ===================== APP LOGIC ===================== */
+  const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  const escapeHTML = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
-    /** Detail view rendering */
-    function renderDetail(c) {
-      const detail = document.getElementById('detailView');
-      if (!c) {
-        detail.classList.remove('show');
-        detail.setAttribute('aria-busy', 'false');
-        return;
-      }
-      document.getElementById('crumbName').textContent = c.name;
-      document.getElementById('detailName').textContent = c.name;
-      document.getElementById('detailAlias').textContent = c.alias || '';
-      document.getElementById('detailAlias').style.display = c.alias ? 'inline-block' : 'none';
-      const status = document.getElementById('detailStatus');
-      status.textContent = c.status || '';
-      status.style.display = c.status ? 'inline-block' : 'none';
-
-      const tags = document.getElementById('detailTags');
-      tags.innerHTML = (c.tags||[]).map(t=>`<span class="tag">${escapeHTML(t)}</span>`).join('');
-
-      const img = document.getElementById('detailImg');
-      if (c.image) { img.src = c.image; img.alt = `${c.name} — portrait`; }
-      else { img.removeAttribute('src'); img.alt = ''; }
-
-      document.getElementById('detailBio').textContent = c.bio || '';
-
-      const kv = document.getElementById('detailKV');
-      kv.innerHTML = '';
-      const entries = c.stats ? Object.entries(c.stats) : [];
-      for (const [k,v] of entries) {
-        const div = document.createElement('div');
-        div.className = 'kv-item';
-        div.innerHTML = `<div class="k">${escapeHTML(k)}</div><div class="v">${escapeHTML(v)}</div>`;
-        kv.appendChild(div);
-      }
-
-      detail.classList.add('show');
-      detail.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-
-    /** Router */
-    function parseHash() {
-      const h = location.hash || '#/';
-      const parts = h.slice(2).split('/'); // remove "#/"
-      const route = parts[0] || '';
-      const param = parts[1] || '';
-      return { route, param };
-    }
-
-    function navigate() {
-      const { route, param } = parseHash();
-      const list = document.getElementById('listView');
-      const detail = document.getElementById('detailView');
-
-      if (route === 'character' && param) {
-        list.style.display = 'none';
-        const who = CHARACTERS.find(c => (c.id || slugify(c.name)) === param);
-        renderDetail(who);
-        if (!who) {
-          // simple 404 inside detail container
-          detail.classList.add('show');
-          detail.querySelector('.body').innerHTML = `
-            <nav class="breadcrumbs"><a href="#/">Characters</a> / <span>Not found</span></nav>
-            <h1>Character not found</h1>
-            <p class="bio">We couldn't find a character with id "<code>${escapeHTML(param)}</code>".</p>
-          `;
-        }
-      } else {
-        detail.classList.remove('show');
-        list.style.display = '';
-        updateList();
-      }
-    }
-
-    /** Search + filter binding */
-    const searchInput = document.getElementById('searchInput');
-    const clearBtn = document.getElementById('clearSearch');
-
-    function updateList() {
-      const term = searchInput.value.trim().toLowerCase();
-      const activeTags = getActiveTags();
-      const filtered = CHARACTERS.filter(c => matchesFilters(c, term, activeTags));
-      renderList(filtered);
-    }
-
-    clearBtn.addEventListener('click', () => {
-      searchInput.value = '';
-      updateList();
-      searchInput.focus();
-    });
-    searchInput.addEventListener('input', updateList);
-
-    /** Theme toggle (saved in localStorage) */
-    const root = document.documentElement;
-    const THEME_KEY = 'character-theme';
-    const themeToggle = document.getElementById('themeToggle');
-    function applyTheme(t) {
-      if (t === 'light') root.setAttribute('data-theme','light');
-      else root.removeAttribute('data-theme');
-      themeToggle.setAttribute('aria-pressed', t === 'light' ? 'true' : 'false');
-    }
-    const saved = localStorage.getItem(THEME_KEY);
-    applyTheme(saved || 'dark');
-    themeToggle.addEventListener('click', () => {
-      const isLight = root.getAttribute('data-theme') === 'light';
-      const next = isLight ? 'dark' : 'light';
-      applyTheme(next);
-      localStorage.setItem(THEME_KEY, next);
-    });
-
-    /** Init */
-    renderTagBar(collectTags(CHARACTERS));
-    renderList(CHARACTERS);
-    window.addEventListener('hashchange', navigate);
-    navigate();
-
-    // Keyboard: open first visible card with Enter from search
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const first = document.querySelector('.grid .card');
-        if (first) first.focus ? first.focus() : (location.href = first.getAttribute('href'));
-      }
-    });
-
-    // Preload sample images if missing to avoid broken layout (optional)
-    // You can delete this block once you add real images.
-    for (const c of CHARACTERS) {
-      if (!c.image) continue;
-      const img = new Image();
-      img.src = c.image;
-    }
-  </script>
-</body>
-</html>
+  function collectTags(data){ const set=new Set(); data.for
