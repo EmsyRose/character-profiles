@@ -1,173 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hashira Character Profiles</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Demon Slayer — Character Profiles</title>
+<meta name="description" content="Browse Demon Slayer–themed character profiles with stylized silhouettes and haori patterns." />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
 <style>
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        margin: 0;
-        padding: 0;
-        background: repeating-linear-gradient(
-            45deg,
-            #111 0px,
-            #111 10px,
-            #151515 10px,
-            #151515 20px
-        );
-        color: #fff;
-    }
-    header {
-        text-align: center;
-        padding: 2rem;
-        background-color: rgba(0,0,0,0.8);
-    }
-    header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.3rem;
-    }
-    header h2 {
-        font-size: 1.2rem;
-        font-weight: normal;
-        opacity: 0.8;
-    }
-    .container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        padding: 2rem;
-        max-width: 1200px;
-        margin: auto;
-    }
-    .card {
-        background-color: rgba(0,0,0,0.7);
-        border-radius: 10px;
-        overflow: hidden;
-        text-align: center;
-        padding: 1rem;
-        transition: transform 0.3s, box-shadow 0.3s;
-        cursor: pointer;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0 15px var(--color);
-    }
-    .image {
-        height: 200px;
-        background-size: cover;
-        background-position: center;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-    }
-    .name {
-        font-size: 1.3rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-        color: var(--color);
-    }
-    .bio {
-        font-size: 0.9rem;
-        opacity: 0.85;
-    }
-    /* Modal styles */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.7);
-    }
-    .modal-content {
-        background-color: #222;
-        margin: 10% auto;
-        padding: 20px;
-        border-radius: 10px;
-        width: 80%;
-        max-width: 600px;
-        color: white;
-        position: relative;
-    }
-    .close {
-        color: #aaa;
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-    .close:hover {
-        color: white;
-    }
+  /* ===================== THEME ===================== */
+  :root{
+    --bg: #0a0c10;                /* ink black */
+    --bg-2: #0e1218;
+    --text: #eaeaf0;
+    --muted: #a9b0bf;
+    --accent: #c81f3d;            /* blood red */
+    --accent-2:#f04a4a;
+    --panel: #12161e;
+    --panel-2:#0f141c;
+    --ring: 0 0 0 3px rgba(200,31,61,.35);
+    --radius: 16px;
+    --shadow: 0 16px 50px rgba(0,0,0,.55);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    color:var(--text);
+    background:
+      /* red sun vignette */
+      radial-gradient(800px 450px at 80% -10%, rgba(200,31,61,.18), transparent 60%),
+      /* subtle wave pattern (SVG data URI below) */
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><defs><pattern id='a' width='20' height='20' patternUnits='userSpaceOnUse'><path d='M0 10q5-10 10 0t10 0t10 0' fill='none' stroke='%231f2835' stroke-width='1'/></pattern></defs><rect width='100%' height='100%' fill='%230a0c10'/><rect width='100%' height='100%' fill='url(%23a)' opacity='.55'/></svg>") repeat;
+    background-attachment: fixed;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  .container{max-width:1100px;margin:0 auto;padding:24px}
+
+  header{
+    display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;margin-bottom:10px
+  }
+  .title{
+    display:flex;flex-direction:column;gap:2px
+  }
+  .jp{
+    font-family: "Noto Serif JP", serif;
+    font-weight:900;
+    letter-spacing:.08em;
+    font-size: clamp(22px, 3.6vw, 36px);
+    line-height:1;
+  }
+  .en{
+    font-weight:800; letter-spacing:.3px; opacity:.9; margin-top:4px; font-size: clamp(14px, 2.2vw, 16px);
+    color:var(--muted)
+  }
+
+  .toolbar{display:flex;gap:10px;align-items:center;justify-content:flex-end}
+  .btn{
+    appearance:none;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    color:var(--text);padding:10px 14px;border-radius:12px;box-shadow:var(--shadow);cursor:pointer;font-weight:600
+  }
+  .btn:focus-visible{outline:none;box-shadow:var(--ring)}
+  .btn.primary{border-color:rgba(200,31,61,.35)}
+  .icon{font-size:16px;margin-right:8px}
+
+  /* Filters */
+  .filters{display:grid;gap:12px;margin:14px 0 22px}
+  .search{
+    display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;
+    padding:12px 14px;border-radius:12px;background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid rgba(255,255,255,.08)
+  }
+  .search input{background:transparent;border:0;color:var(--text);outline:none;font-size:15px}
+  .search input::placeholder{color:var(--muted)}
+  .tags{display:flex;flex-wrap:wrap;gap:10px}
+
+  /* tsuba-like chip */
+  .chip{
+    position:relative; padding:9px 14px 9px 40px; border-radius:999px; border:1px solid rgba(255,255,255,.12);
+    background:linear-gradient(180deg,#151a24,#0f141c); color:var(--text); font-size:13px;
+  }
+  .chip::before{
+    content:""; position:absolute; left:10px; top:50%; transform:translateY(-50%);
+    width:18px;height:18px;border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(200,31,61,.8) 0 40%, transparent 41%),
+      conic-gradient(from 0deg,#0000 0 25%, rgba(255,255,255,.15) 0 50%, #0000 0 75%, rgba(255,255,255,.15) 0);
+    outline:1px solid rgba(255,255,255,.15);
+  }
+  .chip[aria-pressed="true"]{border-color:var(--accent); box-shadow:0 0 0 3px rgba(200,31,61,.25) inset}
+
+  /* Grid */
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+  @media (max-width:920px){.grid{grid-template-columns:repeat(8,1fr)}}
+  @media (max-width:640px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+  .card{
+    grid-column:span 4;background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);overflow:hidden;
+    display:grid;grid-template-rows:200px auto;transition:transform .2s ease, box-shadow .2s ease
+  }
+  .card:hover{transform:translateY(-3px); box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .thumb{background:#080b10;display:grid;place-items:center;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .content{padding:14px 14px 16px}
+  .name{font-weight:800;font-size:18px}
+  .alias{color:var(--muted);font-size:13px;margin-top:2px}
+  .tagrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .tag{font-size:12px;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:var(--muted)}
+
+  /* Detail */
+  .detail{display:none;background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);overflow:clip;grid-template-columns:380px 1fr;box-shadow:var(--shadow);margin-top:10px}
+  .detail.show{display:grid}
+  @media (max-width:860px){.detail{grid-template-columns:1fr}}
+  .detail .cover{background:#080b10;height:100%}
+  .detail .cover img{width:100%;height:100%;object-fit:cover}
+  .detail .body{padding:18px}
+  .breadcrumbs{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .detail h1{margin:6px 0 6px;font-size:clamp(22px,3vw,28px)}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 14px}
+  .pill{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);font-size:12px;color:var(--muted)}
+  .bio{font-size:15px}
+  .kv{margin-top:18px;display:grid;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:640px){.kv{grid-template-columns:1fr}}
+  .kv-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px}
+  .kv-item .k{font-size:12px;color:var(--muted)}
+  .kv-item .v{font-weight:700}
+
+  footer{margin:32px 0 20px;color:var(--muted);font-size:13px;text-align:center}
 </style>
 </head>
 <body>
+  <div class="container" id="app">
+    <header>
+      <div class="title">
+        <div class="jp">鬼滅の刃</div>
+        <div class="en">Character Profiles (Demon Slayer–inspired)</div>
+      </div>
+      <div class="toolbar">
+        <a class="btn primary" href="#/"><span class="icon">🏠</span>Home</a>
+      </div>
+    </header>
 
-<header>
-    <h1>鬼殺隊柱</h1>
-    <h2>Hashira Character Profiles</h2>
-</header>
+    <section class="filters" aria-label="Filters">
+      <div class="search" role="search">
+        <span aria-hidden="true">🔎</span>
+        <input id="searchInput" type="search" placeholder="Search by name, alias, or bio…" autocomplete="off" />
+        <button class="btn" id="clearSearch" title="Clear search">Clear</button>
+      </div>
+      <div class="tags" id="tagBar" role="toolbar" aria-label="Tag filters"></div>
+    </section>
 
-<div class="container" id="cardContainer">
-    <!-- Cards will be generated by JavaScript -->
-</div>
+    <!-- List view -->
+    <section id="listView" class="grid" aria-live="polite" aria-busy="false"></section>
 
-<!-- Modal -->
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2 id="modalName"></h2>
-        <p id="modalBio"></p>
-    </div>
-</div>
+    <!-- Detail view -->
+    <article id="detailView" class="detail" aria-live="polite" aria-busy="false">
+      <div class="cover"><img id="detailImg" alt=""></div>
+      <div class="body">
+        <nav class="breadcrumbs"><a href="#/">Characters</a> / <span id="crumbName"></span></nav>
+        <h1 id="detailName">Name</h1>
+        <div class="meta">
+          <span class="pill" id="detailAlias"></span>
+          <span class="pill" id="detailStatus"></span>
+        </div>
+        <div class="tagrow" id="detailTags"></div>
+        <p class="bio" id="detailBio"></p>
+        <div class="kv" id="detailKV"></div>
+      </div>
+    </article>
+
+    <footer>No copyrighted images are used; silhouettes and patterns are generated as inline SVG. Replace the sample data with your own when ready.</footer>
+  </div>
 
 <script>
-const hashira = [
-    { name: "Giyu Tomioka", color: "#0ab4ff", pattern: "linear-gradient(135deg, #0ab4ff 50%, #c0392b 50%)", bio: "Detailed bio for the Water Hashira will go here." },
-    { name: "Kyojuro Rengoku", color: "#ffce00", pattern: "radial-gradient(circle, #ffce00 40%, #c0392b 90%)", bio: "Detailed bio for the Flame Hashira will go here." },
-    { name: "Shinobu Kocho", color: "#c87eff", pattern: "repeating-linear-gradient(45deg, #c87eff, #c87eff 10px, #fff 10px, #fff 20px)", bio: "Detailed bio for the Insect Hashira will go here." },
-    { name: "Tengen Uzui", color: "#ff4e50", pattern: "repeating-linear-gradient(45deg, #ff4e50, #fff 15px, #000 30px)", bio: "Detailed bio for the Sound Hashira will go here." },
-    { name: "Muichiro Tokito", color: "#9de5d5", pattern: "radial-gradient(circle at top, #9de5d5, #111)", bio: "Detailed bio for the Mist Hashira will go here." },
-    { name: "Mitsuri Kanroji", color: "#ff8fb1", pattern: "repeating-linear-gradient(45deg, #ff8fb1, #ff8fb1 10px, #b0ff8f 10px, #b0ff8f 20px)", bio: "Detailed bio for the Love Hashira will go here." },
-    { name: "Obanai Iguro", color: "#ffffff", pattern: "repeating-linear-gradient(90deg, #000, #000 10px, #fff 10px, #fff 20px)", bio: "Detailed bio for the Serpent Hashira will go here." },
-    { name: "Sanemi Shinazugawa", color: "#4CAF50", pattern: "repeating-linear-gradient(135deg, #4CAF50, #4CAF50 15px, #fff 15px, #fff 30px)", bio: "Detailed bio for the Wind Hashira will go here." },
-    { name: "Gyomei Himejima", color: "#b89470", pattern: "repeating-radial-gradient(circle, #b89470, #333 20%)", bio: "Detailed bio for the Stone Hashira will go here." }
-];
+  /* ===================== DATA (edit this) ===================== */
+  const CHARACTERS = [
+    {
+      id: "tanjiro-kamado",
+      name: "Tanjiro Kamado",
+      alias: "Water Breathing · Hinokami",
+      status: "Demon Slayer Corps",
+      tags: ["Human", "Swordsman", "Protagonist"],
+      bio: "Kind-hearted and stubbornly hopeful. His haori’s check pattern is a nod to family and resolve.",
+      stats: { "Breathing": "Water / Sun", Nichirin: "Black", Trait: "Unyielding" },
+      image: makeSilhouette("tanjiro")
+    },
+    {
+      id: "nezuko-kamado",
+      name: "Nezuko Kamado",
+      alias: "Demon · Bamboo Muzzle",
+      status: "Demon (ally)",
+      tags: ["Demon", "Sibling", "Support"],
+      bio: "Silent warmth. Blood Art turns gentleness into ferocity.",
+      stats: { "Blood Art": "Exploding Blood", Trait: "Sunlight Resistance", Bond: "Tanjiro" },
+      image: makeSilhouette("nezuko")
+    },
+    {
+      id: "zenitsu-agatsuma",
+      name: "Zenitsu Agatsuma",
+      alias: "Thunderclap and Flash",
+      status: "Demon Slayer Corps",
+      tags: ["Human", "Swordsman", "Lightning"],
+      bio: "Coward by day, lightning by night. Belief channels into a single perfect form.",
+      stats: { "Breathing": "Thunder", Nichirin: "Yellow", Trait: "Single-Form Mastery" },
+      image: makeSilhouette("zenitsu")
+    },
+    {
+      id: "inosuke-hashibira",
+      name: "Inosuke Hashibira",
+      alias: "Beast Breathing · Dual",
+      status: "Demon Slayer Corps",
+      tags: ["Human", "Swordsman", "Wild"],
+      bio: "A boar’s head and a free heart. Instinct sharp enough to cut fate.",
+      stats: { "Breathing": "Beast", Nichirin: "Indigo-Gray", Trait: "Hyper-awareness" },
+      image: makeSilhouette("inosuke")
+    },
+    {
+      id: "muzan-kibutsuji",
+      name: "Muzan Kibutsuji",
+      alias: "Demon King",
+      status: "Antagonist",
+      tags: ["Demon", "Antagonist", "Blood Art"],
+      bio: "A flawless mask over endless hunger. The origin and end of many tragedies.",
+      stats: { Rank: "Demon Progenitor", Weakness: "Sunlight", Trait: "Manipulation" },
+      image: makeSilhouette("muzan")
+    }
+  ];
 
-const container = document.getElementById("cardContainer");
+  /* ======= Patterned silhouette images (SVG data URIs) ======= */
+  /**
+   * Each “style” returns a background haori pattern + a neutral head/shoulders silhouette.
+   * No external assets. Safe to use.
+   */
+  function makeSilhouette(style){
+    const patterns = {
+      tanjiro: haoriTanjiro(),
+      nezuko: haoriNezuko(),
+      zenitsu: haoriZenitsu(),
+      inosuke: haoriInosuke(),
+      muzan: haoriMuzan()
+    };
+    const bg = patterns[style] || haoriTanjiro();
+    const svg = `
+      <svg xmlns='http://www.w3.org/2000/svg' width='1200' height='750' viewBox='0 0 1200 750'>
+        <defs>
+          <clipPath id='round'><rect x='0' y='0' width='1200' height='750' rx='28' ry='28'/></clipPath>
+          <filter id='shadow' x='-20%' y='-20%' width='140%' height='140%'>
+            <feDropShadow dx='0' dy='10' stdDeviation='12' flood-color='rgba(0,0,0,0.6)'/>
+          </filter>
+        </defs>
+        <g clip-path='url(#round)'>
+          ${bg}
+          <!-- vignette -->
+          <rect width='1200' height='750' fill='url(#vignette)' opacity='.9'/>
+          <!-- silhouette (generic warrior bust) -->
+          <g filter='url(#shadow)' opacity='.92'>
+            <path d='M600 470c-80 0-170 50-200 120h400c-30-70-120-120-200-120z' fill='#0a0c10'/>
+            <circle cx='600' cy='330' r='120' fill='#0a0c10'/>
+            <!-- hair spikes -->
+            <path d='M540 210l-40-30 20 50-40-10 30 40-50 5 40 20-30 20 60-5' fill='#0a0c10' opacity='.9'/>
+            <path d='M660 210l40-30-20 50 40-10-30 40 50 5-40 20 30 20-60-5' fill='#0a0c10' opacity='.9'/>
+          </g>
+        </g>
+      </svg>`;
+    return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+  }
 
-hashira.forEach((h, index) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.style.setProperty("--color", h.color);
-    card.innerHTML = `
-        <div class="image" style="background: ${h.pattern};"></div>
-        <div class="name">${h.name}</div>
-        <div class="bio">Click to read more</div>
-    `;
-    card.addEventListener("click", () => openModal(h.name, h.bio));
-    container.appendChild(card);
-});
+  /* ======= Haori backgrounds (as SVG snippets) ======= */
+  function haoriTanjiro(){
+    // Green/black check
+    return `
+      <defs>
+        <pattern id='check' width='80' height='80' patternUnits='userSpaceOnUse'>
+          <rect width='80' height='80' fill='#0b0f14'/>
+          <rect x='0' y='0' width='40' height='40' fill='#0d7a62'/>
+          <rect x='40' y='40' width='40' height='40' fill='#0d7a62'/>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(200,31,61,0.15)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.65)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#check)'/>`;
+  }
 
-const modal = document.getElementById("profileModal");
-const modalName = document.getElementById("modalName");
-const modalBio = document.getElementById("modalBio");
-const closeBtn = document.querySelector(".close");
+  function haoriNezuko(){
+    // Pink asanoha (hemp leaf) over soft gradient
+    return `
+      <defs>
+        <pattern id='asanoha' width='80' height='80' patternUnits='userSpaceOnUse' viewBox='0 0 80 80'>
+          <rect width='80' height='80' fill='#f6c1cc'/>
+          <path d='M40 0 50 20 40 40 30 20 40 0
+                   M0 40 20 50 40 40 20 30 0 40
+                   M40 80 50 60 40 40 30 60 40 80
+                   M80 40 60 50 40 40 60 30 80 40' fill='none' stroke='#8f3c4f' stroke-width='1.2'/>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(200,31,61,0.2)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.65)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#asanoha)'/>`;
+  }
 
-function openModal(name, bio) {
-    modalName.textContent = name;
-    modalBio.textContent = bio;
-    modal.style.display = "block";
-}
+  function haoriZenitsu(){
+    // Yellow triangles
+    return `
+      <defs>
+        <pattern id='tri' width='80' height='80' patternUnits='userSpaceOnUse'>
+          <rect width='80' height='80' fill='#f7c32b'/>
+          <path d='M10 70 30 30 50 70z M50 70 70 30 90 70z M-30 70 -10 30 10 70z' fill='#fff' opacity='.9'/>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(240,74,74,0.16)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.65)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#tri)'/>`;
+  }
 
-closeBtn.onclick = () => modal.style.display = "none";
-window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
-</script>
+  function haoriInosuke(){
+    // Rough fur strokes (blue-gray)
+    return `
+      <defs>
+        <pattern id='fur' width='60' height='60' patternUnits='userSpaceOnUse'>
+          <rect width='60' height='60' fill='#3e5570'/>
+          <path d='M0 45 q15-30 30 0 t30 0' fill='none' stroke='#cbd6e2' stroke-width='2' opacity='.35'/>
+          <path d='M0 25 q15-30 30 0 t30 0' fill='none' stroke='#dfe7f0' stroke-width='1.4' opacity='.25'/>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(240,74,74,0.14)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.65)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#fur)'/>`;
+  }
 
-</body>
-</html>
+  function haoriMuzan(){
+    // Black + red swirls (ominous)
+    return `
+      <defs>
+        <pattern id='swirl' width='160' height='160' patternUnits='userSpaceOnUse'>
+          <rect width='160' height='160' fill='#0a0b0f'/>
+          <g stroke='#a10e24' stroke-width='2' fill='none' opacity='.6'>
+            <path d='M80 10c40 0 70 30 70 70s-30 70-70 70-70-30-70-70 30-70 70-70z'/>
+            <path d='M80 26c31 0 54 23 54 54s-23 54-54 54-54-23-54-54 23-54 54-54z'/>
+          </g>
+        </pattern>
+        <radialGradient id='vignette' cx='80%' cy='-10%' r='120%'>
+          <stop offset='0%' stop-color='rgba(200,31,61,0.28)'/>
+          <stop offset='100%' stop-color='rgba(0,0,0,0.7)'/>
+        </radialGradient>
+      </defs>
+      <rect width='1200' height='750' fill='url(#swirl)'/>`;
+  }
+
+  /* ===================== APP LOGIC ===================== */
+  const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  const escapeHTML = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+  function collectTags(data){ const set=new Set(); data.for
